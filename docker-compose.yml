@@ -6,7 +6,7 @@ services:
     image: passport_llm_service:latest
     container_name: passport_llm_container
     volumes:
-      - ./api_keys.env:/app/app/api_keys.env
+      - ./api_keys.env:/api_keys.env
       - ./logs:/app/logs
     ports:
       - "8001:8001"
