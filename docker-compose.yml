@@ -1,12 +1,19 @@
 version: '3.9'
 
 services:
-  cin_validator:
-    image: faroukdaboussi0/id_card_service:latest
-    container_name: id_card_service
+  passport_llm_service:
+    build: .
+    image: passport_llm_service:latest
+    container_name: passport_llm_container
     volumes:
-      - ./api_keys.env:/app/app/api_keys.env        
-      - ./logs/:/app/app/logs/                  
+      - ./api_keys.env:/app/app/api_keys.env
+      - ./logs:/app/logs
     ports:
-      - "8000:8000"
+      - "8001:8001"
     restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
